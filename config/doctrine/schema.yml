@@ -1,0 +1,47 @@
+# config/doctrine/schema.yml
+Category:
+  columns:
+    name:         { type: string(255), notnull: true, unique: true }
+
+Actions:
+  columns:
+    name:         { type: string(255), notnull: true, unique: true }
+
+Subj_of_law:
+  columns:
+    name:         { type: string(255), notnull: true, unique: true }
+  
+Objects:
+  actAs:        { Timestampable: ~ }
+  columns:
+    category_id:  { type: integer, notnull: true }
+    actions_id:   { type: integer, notnull: true }
+    user_id:      { type: integer, notnull: true }
+    adress:       { type: string(255), notnull: true }
+    description:  { type: string(4000) }
+    room_count:   { type: integer }
+    floor_count:  { type: integer }
+    avaible:      { type: boolean, notnull: true }
+    price:        { type: integer, notnull: true }
+  relations:
+      Category:    { onDelete: CASCADE, local: category_id, foreign: id, foreignAlias: Objects } 
+      Actions:     { onDelete: CASCADE, local: actions_id, foreign: id, foreignAlias: Objects }
+      sfGuardUser: { onDelete: CASCADE, local: user_id, foreign: id, foreignAlias: Objects }
+      Comments:    { onDelete: CASCADE, local: id, foreign: object_id, foreignAlias: Objects }
+      
+Photos:
+  columns:
+    objects_id:   { type: integer, notnull: true }
+    url:          { type: string(255), notnull: true }
+  relations:
+    Objects:      { onDelete: CASCADE, local: objects_id, foreign: id, foreignAlias: AllPhotos }
+    
+Comments:
+  actAs:        { Timestampable: ~ }
+  columns:
+    user_id:      { type: integer, notnull: true }
+    object_id:    { type: integer, notnull: true }
+    text:         { type: string(4000), notnull: true }
+    negative:     { type: boolean,  notnull: true }
+  relations:
+      sfGuardUser: { onDelete: CASCADE, local: user_id, foreign: id, foreignAlias: AllComents }

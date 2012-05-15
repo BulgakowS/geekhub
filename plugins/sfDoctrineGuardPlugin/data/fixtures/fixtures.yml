@@ -1,0 +1,33 @@
+sfGuardUser:
+  User_admin:
+    first_name:     John
+    last_name:      Doe
+    email_address:  john.doe@gmail.com
+    username:       admin
+    password:       admin
+    is_super_admin: true
+    Groups:         [Group_admin]
+    phone:          555-555-555
+    subj_of_law_id: 2
+  
+  User:
+    first_name:     Sergey
+    last_name:      Bulgacov
+    email_address:  bulgakows@gmail.com
+    username:       bulgakows
+    password:       123123
+    is_super_admin: false
+    Groups:         [Group_admin]
+    phone:          111-111-111
+    subj_of_law_id: 1
+      
+sfGuardGroup:
+  Group_admin:
+    name:           admin
+    description:    Administrator group
+    Permissions:    [Permission_admin]
+
+sfGuardPermission:
+  Permission_admin:
+    name:           admin
+    description:    Administrator permission

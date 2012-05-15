@@ -1,0 +1,8 @@
+# data/fixtures/actions.yml
+Actions:
+  Sale:
+    name: 'Продажа'
+  Buy:
+    name: 'Покупка'
+  Rent:
+    name: 'Аренда'

@@ -1,0 +1,10 @@
+# data/fixtures/category.yml
+Category:
+  House:
+    name: 'Дом'
+  Flat:
+    name: 'Квартира'
+  Summer_residence:
+    name: 'Дача'
+  Garage:
+    name: 'Гараж'

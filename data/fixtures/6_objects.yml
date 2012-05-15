@@ -1,0 +1,13 @@
+objects:
+<?php for ($i = 100; $i <= 130; $i++): ?>
+  Objec_<?php echo $i ?>:
+    category_id:  <?php echo rand(1, 4)."\n" ?>
+    actions_id:   <?php echo rand(1, 3)."\n" ?>
+    user_id:    1
+    adress:       бул. Шевченка <?php echo $i."\n" ?>
+    description: объект №<?php echo $i."\n" ?>
+    room_count:   <?php echo rand(1, 5)."\n" ?>
+    floor_count:  <?php echo rand(1, 16)."\n" ?>
+    avaible:      true
+    price:        <?php echo rand(1000, 999999)."$\n" ?>
+<?php endfor ?>

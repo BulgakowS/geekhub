@@ -1,0 +1,58 @@
+actions:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Actions
+    module:               actions
+    prefix_path:          /actions
+    column:               id
+    with_wildcard_routes: true
+
+category:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Category
+    module:               category
+    prefix_path:          /category
+    column:               id
+    with_wildcard_routes: true
+
+photos:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Photos
+    module:               photos
+    prefix_path:          /photos
+    column:               id
+    with_wildcard_routes: true
+
+objects:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Objects
+    module:               objects
+    prefix_path:          /objects
+    column:               id
+    with_wildcard_routes: true
+
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+# default rules
+#
+#objects:
+#  url:   /objects
+#  param: { module: objects, action: index }
+
+
+homepage:
+  url:   /
+  param: { module: objects, action: index }
+
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*
