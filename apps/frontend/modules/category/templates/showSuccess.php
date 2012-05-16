@@ -1,9 +1,10 @@
+<?php use_helper('Pagination'); ?>
 <h1><?php echo $category->getName() ?></h1>
 <div id="cat_menu">
     <?php include_partial('category/cat_menu', array('categorys' => $categorys)) ?>
 </div>
 <table class="table table-bordered table-condensed" id="main_table">
-<?php foreach ($objects as $objects): ?>  
+<?php foreach ($pager->getResults() as $objects): ?>  
 <tr>
     <td>
         <p class="cat"><?php echo $objects->getCategory() ?> | <?php echo $objects->getActions() ?> | <?php echo $objects->getSfGuardUser() ?></p>
@@ -29,3 +30,4 @@
 </tr>
 <?php endforeach; ?>
 </table>  
+ <?php  echo pager_navigation($pager, '@by_cat_pager?cat='.$sf_request->getParameter('cat')) ?>

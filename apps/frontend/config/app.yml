@@ -4,5 +4,5 @@
 # default values
 #all:
 all:
-  max_on_homepage: 10
-  max_on_category: 15
+  max_on_homepage: 5
+  max_on_category: 10

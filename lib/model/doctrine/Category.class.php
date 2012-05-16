@@ -17,8 +17,12 @@ class Category extends BaseCategory
         return sprintf('%s', $this->getName() );
     }
 
-    /*public function getSlug()
+    public function getObjectsByCategoryQuery($cat)
     {
-        return Reelty::slugify($this->getName());
-    } */
+        $q = Doctrine_Query::create()
+            ->from('Objects o')
+            ->where('o.category_id = ?', $cat);
+
+        return Doctrine_Core::getTable('Category')->addObjectsByCategoryQuery($q);
+    }
 }

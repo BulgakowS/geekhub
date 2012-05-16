@@ -24,7 +24,7 @@
           </li>
           <li>
             <a href="<?php echo url_for('@actions'); ?>" class="btn btn-info">
-                Действия
+                Разделы
             </a>
           </li>
         </ul> 

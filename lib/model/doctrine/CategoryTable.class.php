@@ -24,4 +24,19 @@ class CategoryTable extends Doctrine_Table
 
         return $q->execute();
     }
+   
+    public function addObjectsByCategoryQuery(Doctrine_Query $q = null)
+    {
+        if (is_null($q))
+        {
+            $q = Doctrine_Query::create()
+            ->from('Objects o');
+        }
+
+        $alias = $q->getRootAlias();
+
+        $q->addOrderBy($alias . '.updated_at DESC');
+        
+        return $q;
+    }
 }

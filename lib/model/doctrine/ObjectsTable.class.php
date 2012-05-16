@@ -25,4 +25,6 @@ class ObjectsTable extends Doctrine_Table
 
         return $q->execute();
     }
+    
+    
 }

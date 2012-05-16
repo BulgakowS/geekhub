@@ -20,6 +20,7 @@ class categoryActions extends sfActions
     $this->categorys = Doctrine::getTable('Category')
             ->createQuery('c')
             ->execute();
+      
   }
   
   public function executeShow(sfWebRequest $request)
@@ -28,8 +29,13 @@ class categoryActions extends sfActions
     $this->categorys = Doctrine::getTable('Category')
             ->createQuery('c')
             ->execute();
+    
     $this->category = Doctrine::getTable('Category')->find($id);
-    $this->objects = $this->category->getObjects();
+    
+    $this->pager = new sfDoctrinePager('Objects',  sfConfig::get('app_max_on_category'));
+    $this->pager->setQuery($this->category->getObjectsByCategoryQuery($id));
+    $this->pager->setPage($this->getRequestParameter('page',1));
+    $this->pager->init();
   }
   
 }

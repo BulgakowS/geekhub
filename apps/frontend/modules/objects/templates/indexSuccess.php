@@ -1,3 +1,4 @@
+<?php use_helper('Pagination'); ?>
 <h1>Все объекты</h1>
 
 <?php if ($sf_user->isAuthenticated()): ?>
@@ -7,7 +8,7 @@
     <?php include_partial('category/cat_menu', array('categorys' => $categorys)) ?>
 </div>  
 <table class="table table-bordered table-condensed" id="main_table">
-<?php foreach ($objectss as $objects): ?>  
+<?php foreach ($pager->getResults() as $objects): ?>  
 <tr>
     <td>
         <p class="cat"><?php echo $objects->getCategory() ?> | <?php echo $objects->getActions() ?> | <?php echo $objects->getSfGuardUser() ?></p>
@@ -33,3 +34,5 @@
 </tr>
 <?php endforeach; ?>
 </table>  
+  
+ <?php  echo pager_navigation($pager, '@homepage_pager') ?>

@@ -1,7 +1,11 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
-
+# default rules
+homepage_pager:
+  url:   /page/:page
+  param: { module: objects, action: index }
+  
 sf_guard_signin:
   url:   /login
   param: { module: sfGuardAuth, action: signin }
@@ -17,6 +21,10 @@ sf_guard_password:
 categories:
   url:   /categories
   param: { module: category, action: index }
+
+by_cat_pager:
+  url:   /showcategory/:cat/page/:page
+  param: { module: category, action: show }
 
 by_cat:
   url:   /showcategory/:cat

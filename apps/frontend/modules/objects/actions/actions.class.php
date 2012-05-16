@@ -12,11 +12,11 @@ class objectsActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-      $this->objectss = Doctrine::getTable('Objects')
-              ->createQuery('a')
-              ->where('a.avaible = true')
-              ->orderBy('a.updated_at DESC')
-              ->execute();
+      $this->pager = new sfDoctrinePager('Objects',  sfConfig::get('app_max_on_homepage'));
+      $this->pager->getQuery()->from('Objects o')->where('o.avaible = true')->orderBy('o.updated_at DESC');
+      $this->pager->setPage($this->getRequestParameter('page',1));
+      $this->pager->init();
+      
       $this->categorys = Doctrine::getTable('Category')
               ->createQuery('c')
               ->execute();
