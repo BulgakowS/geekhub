@@ -25,9 +25,36 @@ class objectsActions extends sfActions
   }
 
   public function executeShow(sfWebRequest $request)
-  {
-    $this->objects = Doctrine_Core::getTable('Objects')->find(array($request->getParameter('id')));
-    $this->forward404Unless($this->objects);
+  { 
+    $id = $request->getParameter('id');
+    
+    
+    $obj = Doctrine_Core::getTable('Objects')->find($request->getParameter('id'));
+    $this->object = $obj;
+    $this->forward404Unless($this->object);
+    $this->comments = $obj->getAllComments();
+    
+    $this->form = new CommentsForm();
+    $this->form->useFields(array('text','negative'));
+    
+    if($request->isMethod('post')) {
+        $this->form->bind($request->getParameter($this->form->getName())); 
+        if ( $this->form->isValid() ) {
+            $values = $this->form->getValues();
+//           var_dump($values);exit;
+            $user_id = $this->getUser()->getGuardUser()->getId();
+            $comment = new Comments();
+            $comment->setObjectId($id);
+            $comment->setUserId($user_id);
+            $comment->setText($values['text']);
+            $comment->setNegative($values['negative']);
+            $comment->save();
+
+            $this->getUser()->setFlash('success', 'Комментарий успешно добавлен!');
+
+            $this->redirect('@obj_show?id='.$id);
+        }   
+    }
   }
 
   public function executeNew(sfWebRequest $request)

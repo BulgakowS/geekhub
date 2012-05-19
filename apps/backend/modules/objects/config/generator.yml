@@ -15,8 +15,7 @@ generator:
       actions: ~
       fields:  ~
       list:    ~
-      filter:  
-        display: [id, user_id]
+      filter:  ~
       form:    ~
       edit:    ~
       new:     ~

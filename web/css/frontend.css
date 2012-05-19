@@ -5,7 +5,10 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
+*{
+	margin:0;
+	padding:0;
+}
 body { 
     background: URL('img/bg.png');
     padding: 0 30px;
@@ -16,7 +19,7 @@ a{
 }
 header{
     width: 100%;
-    height: 150px;
+    height: 100px;
 }
 article{
     clear: both;
@@ -29,11 +32,11 @@ article{
 }
 
 #menu{
-    margin: 50px 20px;
+    margin: 30px 20px;
     float: left;
 }
 #user_menu{
-    margin: 50px 20px;
+    margin: 30px 20px;
     float: right;
 }
 #menu ul li, #user_menu ul li{
@@ -96,3 +99,37 @@ h2.obj_link a:hover{
     padding: 10px;
     background: #fcf8e3;
 }
+.pager{
+    margin: 0 auto;
+}
+.comment-ok{
+    float: right;
+}
+.comment-form{
+    margin: 0 auto;
+    width: 60%;
+}
+.comment-form textarea{
+    width: 100%;
+    resize: vertical;
+}
+.comment{
+    width: 80%;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 10px;
+}
+.comm_autor{
+    font-weight: bold;
+}
+.comm_autor span{
+    float: right;
+}
+.comm_text{
+    width: 80%;
+    margin: 0 auto;
+}
+.comm_nagative{
+    
+}
+

@@ -1,6 +1,6 @@
 CREATE TABLE actions (id BIGINT AUTO_INCREMENT, name VARCHAR(255) NOT NULL UNIQUE, PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE category (id BIGINT AUTO_INCREMENT, name VARCHAR(255) NOT NULL UNIQUE, PRIMARY KEY(id)) ENGINE = INNODB;
-CREATE TABLE comments (id BIGINT AUTO_INCREMENT, user_id BIGINT NOT NULL, object_id BIGINT NOT NULL, text TEXT NOT NULL, negative TINYINT(1) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX user_id_idx (user_id), PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE comments (id BIGINT AUTO_INCREMENT, user_id BIGINT NOT NULL, object_id BIGINT NOT NULL, text TEXT NOT NULL, negative TINYINT(1) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX user_id_idx (user_id), INDEX object_id_idx (object_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE objects (id BIGINT AUTO_INCREMENT, category_id BIGINT NOT NULL, actions_id BIGINT NOT NULL, user_id BIGINT NOT NULL, adress VARCHAR(255) NOT NULL, description TEXT, room_count BIGINT, floor_count BIGINT, avaible TINYINT(1) NOT NULL, price BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX category_id_idx (category_id), INDEX actions_id_idx (actions_id), INDEX user_id_idx (user_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE photos (id BIGINT AUTO_INCREMENT, objects_id BIGINT NOT NULL, url VARCHAR(255) NOT NULL, INDEX objects_id_idx (objects_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE subj_of_law (id BIGINT AUTO_INCREMENT, name VARCHAR(255) NOT NULL UNIQUE, PRIMARY KEY(id)) ENGINE = INNODB;
@@ -13,6 +13,7 @@ CREATE TABLE sf_guard_user (id BIGINT AUTO_INCREMENT, first_name VARCHAR(255), l
 CREATE TABLE sf_guard_user_group (user_id BIGINT, group_id BIGINT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(user_id, group_id)) ENGINE = INNODB;
 CREATE TABLE sf_guard_user_permission (user_id BIGINT, permission_id BIGINT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(user_id, permission_id)) ENGINE = INNODB;
 ALTER TABLE comments ADD CONSTRAINT comments_user_id_sf_guard_user_id FOREIGN KEY (user_id) REFERENCES sf_guard_user(id) ON DELETE CASCADE;
+ALTER TABLE comments ADD CONSTRAINT comments_object_id_objects_id FOREIGN KEY (object_id) REFERENCES objects(id) ON DELETE CASCADE;
 ALTER TABLE objects ADD CONSTRAINT objects_user_id_sf_guard_user_id FOREIGN KEY (user_id) REFERENCES sf_guard_user(id) ON DELETE CASCADE;
 ALTER TABLE objects ADD CONSTRAINT objects_category_id_category_id FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE;
 ALTER TABLE objects ADD CONSTRAINT objects_actions_id_actions_id FOREIGN KEY (actions_id) REFERENCES actions(id) ON DELETE CASCADE;

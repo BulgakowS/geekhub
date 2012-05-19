@@ -11,6 +11,27 @@
 class CommentsForm extends BaseCommentsForm
 {
   public function configure()
-  {
+  {   
+      $this->disableCSRFProtection();
+      unset($this['created_at'], $this['updated_at'], $this['id'] );
+      
+      $this->widgetSchema['negative'] = new sfWidgetFormInputCheckbox(array(), 
+                                            array('id'=>"pncheck", 
+                                                  'name'=>"pncheck", 
+                                                  'data-on'=>"Позитивный", 
+                                                  'data-off'=>"Негативный",
+                                                  'checked'=>'true')
+                                            );
+      
+      $this->widgetSchema->setLabels(array(
+         'text' => 'Введите Ваш комментарий:',
+         'negative' => ' '
+      ));
+      
+      $this->setValidators(array(
+        'text' => new sfValidatorString(array('min_length' => 5)),
+        'negative' => new sfValidatorBoolean() 
+      ));
+      
   }
 }

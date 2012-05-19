@@ -30,4 +30,6 @@
 </tr>
 <?php endforeach; ?>
 </table>  
+<div class="pager">  
  <?php  echo pager_navigation($pager, '@by_cat_pager?cat='.$sf_request->getParameter('cat')) ?>
+</div>

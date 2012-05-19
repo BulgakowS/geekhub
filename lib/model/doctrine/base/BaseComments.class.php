@@ -10,20 +10,20 @@
  * @property string $text
  * @property boolean $negative
  * @property sfGuardUser $sfGuardUser
- * @property Doctrine_Collection $Objects
+ * @property Objects $Objects
  * 
- * @method integer             getUserId()      Returns the current record's "user_id" value
- * @method integer             getObjectId()    Returns the current record's "object_id" value
- * @method string              getText()        Returns the current record's "text" value
- * @method boolean             getNegative()    Returns the current record's "negative" value
- * @method sfGuardUser         getSfGuardUser() Returns the current record's "sfGuardUser" value
- * @method Doctrine_Collection getObjects()     Returns the current record's "Objects" collection
- * @method Comments            setUserId()      Sets the current record's "user_id" value
- * @method Comments            setObjectId()    Sets the current record's "object_id" value
- * @method Comments            setText()        Sets the current record's "text" value
- * @method Comments            setNegative()    Sets the current record's "negative" value
- * @method Comments            setSfGuardUser() Sets the current record's "sfGuardUser" value
- * @method Comments            setObjects()     Sets the current record's "Objects" collection
+ * @method integer     getUserId()      Returns the current record's "user_id" value
+ * @method integer     getObjectId()    Returns the current record's "object_id" value
+ * @method string      getText()        Returns the current record's "text" value
+ * @method boolean     getNegative()    Returns the current record's "negative" value
+ * @method sfGuardUser getSfGuardUser() Returns the current record's "sfGuardUser" value
+ * @method Objects     getObjects()     Returns the current record's "Objects" value
+ * @method Comments    setUserId()      Sets the current record's "user_id" value
+ * @method Comments    setObjectId()    Sets the current record's "object_id" value
+ * @method Comments    setText()        Sets the current record's "text" value
+ * @method Comments    setNegative()    Sets the current record's "negative" value
+ * @method Comments    setSfGuardUser() Sets the current record's "sfGuardUser" value
+ * @method Comments    setObjects()     Sets the current record's "Objects" value
  * 
  * @package    reelty
  * @subpackage model
@@ -62,9 +62,10 @@ abstract class BaseComments extends sfDoctrineRecord
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
 
-        $this->hasMany('Objects', array(
+        $this->hasOne('Objects', array(
              'local' => 'object_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

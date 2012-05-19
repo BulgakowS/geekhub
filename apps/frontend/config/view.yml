@@ -14,7 +14,7 @@ default:
 
   stylesheets:    [frontend.css, bootstrap-responsive.css, bootstrap.css]
 
-  javascripts:    [main.js, bootstrap.js]
+  javascripts:    [jquery.min.js, jquery.tzCheckbox.js, main.js]
 
   has_layout:     true
   layout:         layout_site

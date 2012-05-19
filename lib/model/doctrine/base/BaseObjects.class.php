@@ -17,8 +17,8 @@
  * @property Category $Category
  * @property Actions $Actions
  * @property sfGuardUser $sfGuardUser
- * @property Comments $Comments
  * @property Doctrine_Collection $AllPhotos
+ * @property Doctrine_Collection $AllComments
  * 
  * @method integer             getCategoryId()  Returns the current record's "category_id" value
  * @method integer             getActionsId()   Returns the current record's "actions_id" value
@@ -32,8 +32,8 @@
  * @method Category            getCategory()    Returns the current record's "Category" value
  * @method Actions             getActions()     Returns the current record's "Actions" value
  * @method sfGuardUser         getSfGuardUser() Returns the current record's "sfGuardUser" value
- * @method Comments            getComments()    Returns the current record's "Comments" value
  * @method Doctrine_Collection getAllPhotos()   Returns the current record's "AllPhotos" collection
+ * @method Doctrine_Collection getAllComments() Returns the current record's "AllComments" collection
  * @method Objects             setCategoryId()  Sets the current record's "category_id" value
  * @method Objects             setActionsId()   Sets the current record's "actions_id" value
  * @method Objects             setUserId()      Sets the current record's "user_id" value
@@ -46,8 +46,8 @@
  * @method Objects             setCategory()    Sets the current record's "Category" value
  * @method Objects             setActions()     Sets the current record's "Actions" value
  * @method Objects             setSfGuardUser() Sets the current record's "sfGuardUser" value
- * @method Objects             setComments()    Sets the current record's "Comments" value
  * @method Objects             setAllPhotos()   Sets the current record's "AllPhotos" collection
+ * @method Objects             setAllComments() Sets the current record's "AllComments" collection
  * 
  * @package    reelty
  * @subpackage model
@@ -114,14 +114,13 @@ abstract class BaseObjects extends sfDoctrineRecord
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
 
-        $this->hasOne('Comments', array(
-             'local' => 'id',
-             'foreign' => 'object_id',
-             'onDelete' => 'CASCADE'));
-
         $this->hasMany('Photos as AllPhotos', array(
              'local' => 'id',
              'foreign' => 'objects_id'));
+
+        $this->hasMany('Comments as AllComments', array(
+             'local' => 'id',
+             'foreign' => 'object_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

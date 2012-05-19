@@ -27,7 +27,6 @@ Objects:
       Category:    { onDelete: CASCADE, local: category_id, foreign: id, foreignAlias: Objects } 
       Actions:     { onDelete: CASCADE, local: actions_id, foreign: id, foreignAlias: Objects }
       sfGuardUser: { onDelete: CASCADE, local: user_id, foreign: id, foreignAlias: Objects }
-      Comments:    { onDelete: CASCADE, local: id, foreign: object_id, foreignAlias: Objects }
       
 Photos:
   columns:
@@ -44,4 +43,5 @@ Comments:
     text:         { type: string(4000), notnull: true }
     negative:     { type: boolean,  notnull: true }
   relations:
-      sfGuardUser: { onDelete: CASCADE, local: user_id, foreign: id, foreignAlias: AllComents }
+      sfGuardUser: { onDelete: CASCADE, local: user_id, foreign: id, foreignAlias: AllComments }
+      Objects:     { onDelete: CASCADE, local: object_id, foreign: id, foreignAlias: AllComments }

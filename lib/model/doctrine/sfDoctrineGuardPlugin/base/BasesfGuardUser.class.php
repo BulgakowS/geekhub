@@ -26,7 +26,7 @@
  * @property sfGuardRememberKey $RememberKeys
  * @property sfGuardForgotPassword $ForgotPassword
  * @property Doctrine_Collection $Objects
- * @property Doctrine_Collection $AllComents
+ * @property Doctrine_Collection $AllComments
  * 
  * @method string                getFirstName()             Returns the current record's "first_name" value
  * @method string                getLastName()              Returns the current record's "last_name" value
@@ -49,7 +49,7 @@
  * @method sfGuardRememberKey    getRememberKeys()          Returns the current record's "RememberKeys" value
  * @method sfGuardForgotPassword getForgotPassword()        Returns the current record's "ForgotPassword" value
  * @method Doctrine_Collection   getObjects()               Returns the current record's "Objects" collection
- * @method Doctrine_Collection   getAllComents()            Returns the current record's "AllComents" collection
+ * @method Doctrine_Collection   getAllComments()           Returns the current record's "AllComments" collection
  * @method sfGuardUser           setFirstName()             Sets the current record's "first_name" value
  * @method sfGuardUser           setLastName()              Sets the current record's "last_name" value
  * @method sfGuardUser           setSubjOfLawId()           Sets the current record's "subj_of_law_id" value
@@ -71,7 +71,7 @@
  * @method sfGuardUser           setRememberKeys()          Sets the current record's "RememberKeys" value
  * @method sfGuardUser           setForgotPassword()        Sets the current record's "ForgotPassword" value
  * @method sfGuardUser           setObjects()               Sets the current record's "Objects" collection
- * @method sfGuardUser           setAllComents()            Sets the current record's "AllComents" collection
+ * @method sfGuardUser           setAllComments()           Sets the current record's "AllComments" collection
  * 
  * @package    reelty
  * @subpackage model
@@ -188,7 +188,7 @@ abstract class BasesfGuardUser extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'user_id'));
 
-        $this->hasMany('Comments as AllComents', array(
+        $this->hasMany('Comments as AllComments', array(
              'local' => 'id',
              'foreign' => 'user_id'));
 

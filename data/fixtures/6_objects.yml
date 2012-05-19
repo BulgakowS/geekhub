@@ -1,5 +1,5 @@
 objects:
-<?php for ($i = 100; $i <= 130; $i++): ?>
+<?php for ($i = 100; $i <= 180; $i++): ?>
   Objec_<?php echo $i ?>:
     category_id:  <?php echo rand(1, 4)."\n" ?>
     actions_id:   <?php echo rand(1, 3)."\n" ?>

@@ -15,5 +15,8 @@ class sfGuardFormSignin extends BasesfGuardFormSignin
    */
   public function configure()
   {
+      $this->widgetSchema['password']->setLabel("Пароль");
+      $this->widgetSchema['remember']->setLabel("Запомнить?");
+      $this->widgetSchema['username']->setLabel("Логин или e-mail");
   }
 }

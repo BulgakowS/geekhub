@@ -17,7 +17,7 @@ sfGuardUser:
     username:       bulgakows
     password:       123123
     is_super_admin: false
-    Groups:         [Group_admin]
+    Groups:         [Group_moder]
     phone:          111-111-111
     subj_of_law_id: 1
       
@@ -26,8 +26,26 @@ sfGuardGroup:
     name:           admin
     description:    Administrator group
     Permissions:    [Permission_admin]
+    
+  Group_user:
+    name:           user
+    description:    User group
+    Permissions:    [Permission_user]
+
+  Group_moder:
+    name:           moder
+    description:    Moder group
+    Permissions:    [Permission_moder]
 
 sfGuardPermission:
   Permission_admin:
     name:           admin
     description:    Administrator permission
+
+  Permission_user:
+    name:           user
+    description:    User permission
+    
+  Permission_moder:
+    name:           moder
+    description:    Moder permission

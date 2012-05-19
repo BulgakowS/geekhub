@@ -27,4 +27,6 @@ class ObjectsTable extends Doctrine_Table
     }
     
     
+    
+    
 }

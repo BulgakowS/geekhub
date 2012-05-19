@@ -33,8 +33,8 @@
          
       <nav id="user_menu">
           <ul>
-            <li><?php echo link_to('Users', 'sf_guard_user', array(), array('class'=>'btn btn-warning')) ?></li>
-            <li><?php echo link_to('Logout', 'sf_guard_signout', array(), array('class'=>'btn btn-danger')) ?></li>
+            <li><?php echo link_to('Пользователи', 'sf_guard_user', array(), array('class'=>'btn btn-warning')) ?></li>
+            <li><?php echo link_to('Выход', 'sf_guard_signout', array(), array('class'=>'btn btn-danger')) ?></li>
           </ul>  
       </nav> 
   <?php endif; ?>

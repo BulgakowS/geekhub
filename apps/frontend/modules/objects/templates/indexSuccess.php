@@ -11,9 +11,13 @@
 <?php foreach ($pager->getResults() as $objects): ?>  
 <tr>
     <td>
-        <p class="cat"><?php echo $objects->getCategory() ?> | <?php echo $objects->getActions() ?> | <?php echo $objects->getSfGuardUser() ?></p>
+        <p class="cat">
+            <?php echo link_to($objects->getCategory(), '@by_cat?cat='.$objects->getCategoryId()) ?> | 
+            <?php echo $objects->getActions() ?> | 
+            <?php echo $objects->getSfGuardUser() ?>
+        </p>
         <h2 class="obj_link">
-            <a href="<?php echo url_for('objects/show?id='.$objects->getId()) ?>">
+            <a href="<?php echo url_for('@obj_show?id='.$objects->getId()) ?>">
                 <?php echo $objects->getAdress() ?>
             </a>
         </h2>
@@ -34,5 +38,6 @@
 </tr>
 <?php endforeach; ?>
 </table>  
-  
+<div class="pager">  
  <?php  echo pager_navigation($pager, '@homepage_pager') ?>
+</div>
