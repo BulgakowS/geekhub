@@ -76,6 +76,10 @@
         <source>Password updated successfully!</source>
         <target>Пароль изменён!</target>
       </trans-unit>
+      <trans-unit>
+        <source>Want to register?</source>
+        <target>Хочешь зарегистрироваться?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

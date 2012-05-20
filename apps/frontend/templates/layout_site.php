@@ -18,6 +18,7 @@
       <nav id="user_menu">
           <ul>
             <?php if ($sf_user->isAuthenticated()): ?>
+              <li class="btn btn-info disabled"><i class="icon-user"></i> Вы вошли как: <b><?php echo $sf_user->getGuardUser() ?></b></li>
               <li><?php echo link_to('Выход', 'sf_guard_signout', array(), array('class'=>'btn btn-danger')) ?></li>
             <?php else: ?>
               <li><?php echo link_to('Вход', 'sf_guard_signin', array(), array('class'=>'btn btn-success')) ?></li>
