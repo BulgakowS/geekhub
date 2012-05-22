@@ -2,7 +2,7 @@
 <h1><?php echo $category->getName() ?></h1>
 
 <?php if ($sf_user->isAuthenticated() && !$sf_user->hasCredential('user')): ?>
-  <a href="<?php echo url_for('objects/new') ?>" class="btn btn-success btn_new">Создать новый</a>
+  <a href="<?php echo url_for('objects/new') ?>" class="btn btn-success btn_new"><i class="icon-tag icon-white"></i> Создать новый</a>
 <?php endif; ?>
   
 <div id="cat_menu">

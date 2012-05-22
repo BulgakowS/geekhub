@@ -12,17 +12,35 @@
     <header>
       <nav id="menu" class="navbar">
           <ul>
-              <li><a href="<?php echo url_for('@homepage'); ?>" class="btn btn-large">Главная</a></li>
+              <li>
+                  <a href="<?php echo url_for('@homepage'); ?>" class="btn btn-large">
+                      <i class="icon-home"></i> Главная
+                  </a>
+              </li>
           </ul>    
       </nav>
       <nav id="user_menu">
           <ul>
             <?php if ($sf_user->isAuthenticated()): ?>
-              <li class="btn btn-info disabled"><i class="icon-user"></i> Вы вошли как: <b><?php echo $sf_user->getGuardUser() ?></b></li>
-              <li><?php echo link_to('Выход', 'sf_guard_signout', array(), array('class'=>'btn btn-danger')) ?></li>
+              <li class="btn btn-info disabled">
+                  <i class="icon-user icon-white"></i> Вы вошли как: <b><?php echo $sf_user->getGuardUser() ?></b>
+              </li>
+              <li>
+                  <a href="<?php echo url_for('@sf_guard_signout'); ?>" class="btn btn-danger">
+                      <i class="icon-off icon-white"></i> Выход
+                  </a>
+              </li>
             <?php else: ?>
-              <li><?php echo link_to('Вход', 'sf_guard_signin', array(), array('class'=>'btn btn-success')) ?></li>
-              <li><?php echo link_to('Регистрация', 'sf_guard_register', array(), array('class'=>'btn btn-warning')) ?></li>
+              <li>
+                  <a href="<?php echo url_for('@sf_guard_signin'); ?>" class="btn btn-success">
+                       <i class="icon-off icon-white"></i> Вход
+                  </a>
+              </li>
+              <li>
+                  <a href="<?php echo url_for('@sf_guard_register'); ?>" class="btn btn-warning">
+                      <i class="icon-wrench icon-white"></i> Регистрация
+                  </a>
+              </li>
             <?php endif; ?>  
           </ul>  
       </nav> 
