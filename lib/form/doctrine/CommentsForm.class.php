@@ -16,8 +16,7 @@ class CommentsForm extends BaseCommentsForm
       unset($this['created_at'], $this['updated_at'], $this['id'] );
       
       $this->widgetSchema['negative'] = new sfWidgetFormInputCheckbox(array(), 
-                                            array('id'=>"pncheck", 
-                                                  'name'=>"pncheck", 
+                                            array('id'=>"pncheck",  
                                                   'data-on'=>"Позитивный", 
                                                   'data-off'=>"Негативный",
                                                   'checked'=>'true')
@@ -32,6 +31,6 @@ class CommentsForm extends BaseCommentsForm
         'text' => new sfValidatorString(array('min_length' => 5)),
         'negative' => new sfValidatorBoolean() 
       ));
-      
+
   }
 }

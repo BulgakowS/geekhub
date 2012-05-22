@@ -44,7 +44,7 @@
         <p>Коментарии:</p>
         <?php if ( count($comments) > 0 ): ?>
             <?php foreach ($comments as $comment): ?>
-                <div class="comment" style="background-color: #<?php echo !$comment->getNegative()?'DFF0D8':'F2DEDE'; ?>">
+                <div class="comment" style="background-color: #<?php echo $comment->getNegative()?'DFF0D8':'F2DEDE'; ?>">
                     <p class="comm_autor">
                         <?php echo $comment->getSfGuardUser(); ?>
                         <span>
@@ -85,5 +85,10 @@
 
 <hr />
 <?php if ($sf_user->isAuthenticated() && !$sf_user->hasCredential('user')): ?>
-<a href="<?php echo url_for('objects/edit?id='.$object->getId()) ?>" class="btn btn-warning"><i class="icon-edit"></i> Редактировать</a>
+    <a href="<?php echo url_for('objects/edit?id='.$object->getId()) ?>" class="btn btn-warning">
+        <i class="icon-edit"></i> Редактировать
+    </a>
+    <a href="<?php echo url_for('objects/delete?id='.$object->getId()) ?>" class="btn btn-danger">
+        <i class="icon-trash icon-white"></i> Удалить
+    </a>
 <?php endif; ?>

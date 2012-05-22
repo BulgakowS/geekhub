@@ -107,7 +107,7 @@ class objectsActions extends sfActions
     {
       $objects = $form->save();
 
-      $this->redirect('objects/edit?id='.$objects->getId());
+      $this->redirect('objects/show?id='.$objects->getId());
     }
   }
 }

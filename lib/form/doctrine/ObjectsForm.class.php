@@ -15,5 +15,8 @@ class ObjectsForm extends BaseObjectsForm
       unset(
         $this['created_at'], $this['updated_at']
       );
+//      
+//      $photoForm = new PhotosForm();
+//      $this->embedForm('Photo', $photoForm);
   }
 }
