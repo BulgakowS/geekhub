@@ -15,8 +15,17 @@ class ObjectsForm extends BaseObjectsForm
       unset(
         $this['created_at'], $this['updated_at']
       );
-//      
-//      $photoForm = new PhotosForm();
-//      $this->embedForm('Photo', $photoForm);
+      
+      $this->widgetSchema->setLabels(array(
+         'category_id' => 'Категория:',
+         'actions_id' => 'Назначение:',
+         'user_id' => 'Владелец:',
+         'description' => 'Описание',
+         'adress' => 'Адресс:',
+         'room_count' => 'К-во комнат:',
+         'floor_count' => 'К-во этажей:',
+         'avaible' => 'Активно:',
+         'price' => 'Цена:'
+      ));
   }
 }

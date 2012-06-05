@@ -1,6 +1,7 @@
 <?php use_stylesheet('jquery.tzCheckbox.css'); ?>
 
 <a href="<?php echo url_for('objects/index') ?>" class="btn btn-info">Назад</a>
+
 <hr />
     <?php if ($sf_user->hasFlash('success')): ?>
         <div class="alert fade in alert-success">
@@ -19,7 +20,10 @@
   <tbody>
   <tr>  
     <td>
-        <p class="cat"><?php echo $object->getCategory() ?> | <?php echo $object->getActions() ?></p>
+        <p class="cat">
+            <?php echo link_to($object->getCategory(), '@by_cat?cat='.$object->getCategoryId(), array('class' => 'label label-info')) ?> | 
+            <?php echo link_to($object->getActions(), '@by_act?act='.$object->getActionsId(), array('class' => 'label label-info')) ?>
+        </p>
         <h2 class="obj_link"><?php echo $object->getAdress() ?></h2>
         <p><b>Вледелец: </b> <?php echo $object->getSfGuardUser() ?></p>
     </td>
@@ -29,7 +33,6 @@
         <p><b>Цена:</b> <?php echo $object->getPrice() ?>$</p>
     </td>
     <td>
-        
         <p><b>Описание:</b><br /> <?php echo $object->getDescription() ?></p>    
         <?php if ( $object->getCreatedAt() == $object->getUpdatedAt() ): ?>
             <p class="updated"><b>Добавлено: </b><?php echo $object->getCreatedAt() ?></p>
@@ -41,7 +44,7 @@
   </tr>
   <tr>
     <td colspan="3">
-        <p>Коментарии:</p>
+        <p><b>Коментарии:</b></p>
         <?php if ( count($comments) > 0 ): ?>
             <?php foreach ($comments as $comment): ?>
                 <div class="comment" style="background-color: #<?php echo $comment->getNegative()?'DFF0D8':'F2DEDE'; ?>">
@@ -62,24 +65,30 @@
         <?php endif; ?>
     </td>
   </tr>
-  <?php if ($sf_user->isAuthenticated()): ?>
+  
   <tr>
       <td colspan="3">
           <div class="comment-form">
-            <?php echo $form->renderGlobalErrors() ?> 
-              
-            <form action="<?php echo url_for('@obj_show?id='.$object->getId())?>" method="POST" autocomplete="off" name="<?php echo $form->getName() ?>"> 
-                <span><?php echo $form['text']->renderLabel(); ?></span>
-                <p><?php echo $form['text']->renderError(); ?>
-                    <?php echo $form['text']->render(); ?></p>
-                <p><?php echo $form['negative']->render(); ?> 
-                <?php echo $form->renderHiddenFields() ?>    
-                    <input type="submit" value="Написать" class="btn btn-large comment-ok"/></p>
-            </form>
+            <?php if ($sf_user->isAuthenticated()): ?>  
+                <?php echo $form->renderGlobalErrors() ?> 
+
+                <form action="<?php echo url_for('@obj_show?id='.$object->getId())?>" method="POST" autocomplete="off" name="<?php echo $form->getName() ?>"> 
+                    <span><?php echo $form['text']->renderLabel(); ?></span>
+                    <p><?php echo $form['text']->renderError(); ?>
+                        <?php echo $form['text']->render(); ?></p>
+                    <p><?php echo $form['negative']->render(); ?> 
+                    <?php echo $form->renderHiddenFields() ?>    
+                        <input type="submit" value="Написать" class="btn btn-large comment-ok"/></p>
+                </form>
+            <?php else: ?>
+              <span class="label label-important" style="padding: 10px;">
+                  Только авторизованные пользователи могут оставлять комментарии!
+              </span>
+            <?php endif; ?>
           </div>    
       </td>
   </tr>
-  <?php endif; ?>
+  
   </tbody>
 </table>
 

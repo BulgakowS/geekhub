@@ -10,6 +10,7 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfDoctrinePlugin');  
     $this->enablePlugins('sfDoctrineGuardPlugin');
     $this->enablePlugins('sfAdminThemejRollerPlugin');
+    $this->enablePlugins('sfFormExtraPlugin');
     
         
     sfValidatorBase::setDefaultMessage('required', 'Обязательное поле!');

@@ -12,6 +12,6 @@
     <tbody>
       <?php echo $form ?>
     </tbody>
-    <tfoot><tr><td><input type="submit" name="change" value="<?php echo __('Request', null, 'sf_guard') ?>" /></td></tr></tfoot>
+    <tfoot><tr><td><input type="submit" name="change" class="btn btn-success"  value="<?php echo __('Request', null, 'sf_guard') ?>" /></td></tr></tfoot>
   </table>
 </form>

@@ -16,4 +16,19 @@ class ActionsTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('Actions');
     }
+
+    public function addObjectsByActionQuery(Doctrine_Query $q = null)
+    {
+        if (is_null($q))
+        {
+            $q = Doctrine_Query::create()
+            ->from('Objects o');
+        }
+
+        $alias = $q->getRootAlias();
+
+        $q->addOrderBy($alias . '.updated_at DESC');
+        
+        return $q;
+    }
 }

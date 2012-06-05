@@ -13,26 +13,23 @@ class objectsActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
       $this->pager = new sfDoctrinePager('Objects',  sfConfig::get('app_max_on_homepage'));
-      $this->pager->getQuery()->from('Objects o')->where('o.avaible = true')->orderBy('o.updated_at DESC');
+      $this->pager->setQuery(ObjectsTable::getFullObjectsQuery());
       $this->pager->setPage($this->getRequestParameter('page',1));
       $this->pager->init();
       
       $this->categorys = Doctrine::getTable('Category')
               ->createQuery('c')
               ->execute();
-      
-      
   }
 
   public function executeShow(sfWebRequest $request)
   { 
     $id = $request->getParameter('id');
     
-    
-    $obj = Doctrine_Core::getTable('Objects')->find($request->getParameter('id'));
-    $this->object = $obj;
+    $this->object = Doctrine_Core::getTable('Objects')->find($request->getParameter('id'));
+
     $this->forward404Unless($this->object);
-    $this->comments = $obj->getAllComments();
+    $this->comments = $this->object->getAllComments();
     
     $this->form = new CommentsForm();
     $this->form->useFields(array('text','negative'));
@@ -40,23 +37,48 @@ class objectsActions extends sfActions
     if($request->isMethod('post')) {
         $this->form->bind($request->getParameter($this->form->getName())); 
         if ( $this->form->isValid() ) {
-            $values = $this->form->getValues();
-//           var_dump($values);exit;
-            $user_id = $this->getUser()->getGuardUser()->getId();
-            $comment = new Comments();
-            $comment->setObjectId($id);
-            $comment->setUserId($user_id);
-            $comment->setText($values['text']);
-            $comment->setNegative($values['negative']);
-            $comment->save();
-
+            
+            $this->form->createComment($id, $this->getUser()->getGuardUser()->getId());
+          
             $this->getUser()->setFlash('success', 'Комментарий успешно добавлен!');
 
             $this->redirect('@obj_show?id='.$id);
         }   
     }
   }
+  
+  public function executeShowByAction(sfWebRequest $request) {
+      $act = $request->getParameter('act');
+      $this->forward404Unless($act);
+      
+      $this->pager = new sfDoctrinePager('Objects',  sfConfig::get('app_max_on_category'));
+      $this->pager->setQuery(ObjectsTable::getObjectsByActionsId($act));
+      $this->pager->setPage($this->getRequestParameter('page',1));
+      $this->pager->init();
+      
+      $this->categorys = Doctrine::getTable('Category')
+              ->createQuery('c')
+              ->execute();
+      
+      $this->setTemplate('index');
+  }
 
+  public function executeShowByCategory(sfWebRequest $request) {
+      $cat = $request->getParameter('cat');
+      $this->forward404Unless($cat);
+      
+      $this->pager = new sfDoctrinePager('Objects',  sfConfig::get('app_max_on_category'));
+      $this->pager->setQuery(ObjectsTable::getObjectsBycategoryId($cat));
+      $this->pager->setPage($this->getRequestParameter('page',1));
+      $this->pager->init();
+      
+      $this->categorys = Doctrine::getTable('Category')
+              ->createQuery('c')
+              ->execute();
+      
+      $this->setTemplate('index');
+  }
+  
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new ObjectsForm();
@@ -99,7 +121,24 @@ class objectsActions extends sfActions
 
     $this->redirect('objects/index');
   }
+    
+  public function executeUploadphotos(sfWebRequest $request)
+  {
+    $id = $request->getParameter('id');
+    $object = Doctrine::getTable('Objects')->find($id);
+    $this->forward404Unless($object);
 
+    $this->photos = $object->getAllPhotos();
+    
+//    $filename = UploadFile::upload($request, $params);
+//
+//    $this->setLayout(false);
+//
+//    die('{"jsonrpc" : "2.0", "error" : {"code": 333, "message": "Upload success."}, "id" : "id", "filename": "'. $filename .'"}');
+//
+//    return sfView::NONE;
+  }  
+  
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
@@ -110,4 +149,9 @@ class objectsActions extends sfActions
       $this->redirect('objects/show?id='.$objects->getId());
     }
   }
+  
+  public function executeError(){
+      $this->setTemplate('error404');
+  }
+  
 }

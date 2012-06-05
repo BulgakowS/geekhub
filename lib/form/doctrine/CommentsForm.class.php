@@ -33,4 +33,14 @@ class CommentsForm extends BaseCommentsForm
       ));
 
   }
+  
+  public function createComment($objId, $userId) {
+            $comment = new Comments();
+            $comment->setObjectId($objId);
+            $comment->setUserId($userId);
+            $comment->setText($this->getValue('text'));
+            $comment->setNegative($this->getValue('negative'));
+            $comment->save();      
+  }
+  
 }

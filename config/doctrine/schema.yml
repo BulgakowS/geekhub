@@ -24,8 +24,8 @@ Objects:
     avaible:      { type: boolean, notnull: true }
     price:        { type: integer, notnull: true }
   relations:
-      Category:    { onDelete: CASCADE, local: category_id, foreign: id, foreignAlias: Objects } 
-      Actions:     { onDelete: CASCADE, local: actions_id, foreign: id, foreignAlias: Objects }
+      Category:    { onDelete: CASCADE, type: one, local: category_id, foreign: id} 
+      Actions:     { onDelete: CASCADE, type: one, local: actions_id, foreign: id}
       sfGuardUser: { onDelete: CASCADE, local: user_id, foreign: id, foreignAlias: Objects }
       
 Photos:

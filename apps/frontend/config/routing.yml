@@ -19,15 +19,23 @@ categories:
 
 by_cat_pager:
   url:   /showcategory/:cat/page/:page
-  param: { module: category, action: show }
+  param: { module: objects, action: showByCategory }
 
 by_cat:
   url:   /showcategory/:cat
-  param: { module: category, action: show }
+  param: { module: objects, action: showByCategory }
+
+by_act:
+  url:   /showaction/:act
+  param: {module: objects, action: showByAction}
 
 obj_show:
   url:   /show-object/:id
   param: { module: objects, action: show }
+
+photo_upload:
+  url:   /upload-photos/:id
+  param: { module: objects, action: uploadphotos }
   
 # default rules
 homepage_pager:
@@ -40,9 +48,9 @@ homepage:
 
 # generic rules
 # please, remove them by adding more specific rules
-default_index:
-  url:   /:module
-  param: { action: index }
+#default_index:
+#  url:   /:module
+#  param: { action: index }
 
 default:
   url:   /:module/:action/*

@@ -12,4 +12,12 @@
  */
 class Actions extends BaseActions
 {
+    public function getObjectsByActionQuery($act)
+    {
+        $q = Doctrine_Query::create()
+            ->from('Objects o')
+            ->where('o.actions_id = ?', $act);
+
+        return Doctrine_Core::getTable('Actions')->addObjectsByActionQuery($q);
+    }
 }

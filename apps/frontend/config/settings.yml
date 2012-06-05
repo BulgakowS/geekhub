@@ -38,3 +38,7 @@ all:
     i18n:                   true
     
     standard_helpers: [Partial, Cache, I18N]
+    
+  .actions:
+    error_404_module:       objects
+    error_404_action:       error

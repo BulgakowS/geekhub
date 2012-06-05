@@ -26,6 +26,19 @@ article{
     padding: 15px 0;
     margin: 0 auto;
 }
+.error_list
+{
+    margin: 0;
+}
+.error_list li
+{
+    color: #fff !important;
+    background: orangered !important;
+    padding: 3px 5px;
+    font-weight: bold;
+    border-radius: 3px 3px 0 0;
+}
+
 .made_by{
     float: right;
     margin: 5px 15px 0;
@@ -107,10 +120,11 @@ h2.obj_link a:hover{
 }
 .comment-form{
     margin: 0 auto;
+    padding: 10px;
     width: 60%;
 }
 .comment-form textarea{
-    width: 100%;
+    width: 99%;
     resize: vertical;
 }
 .comment{
@@ -131,5 +145,23 @@ h2.obj_link a:hover{
 }
 .comm_nagative{
     
+}
+.auth_form{
+    margin: 0 auto;
+}
+
+.url_full_obj{
+    float: right;
+    bottom: 0;
+}
+/*.url_full_obj:hover{
+    font-weight: bold !important;
+    cursor: pointer !important;
+}*/
+form table{
+    margin : 0 auto;
+}
+.error404 img{
+    margin-left: 35%;
 }
 
