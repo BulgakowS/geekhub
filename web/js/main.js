@@ -8,4 +8,6 @@ $(document).ready(function(){
        $('.alert-success').fadeOut();
     }, 3000 );
 
+    $(".full").fullsize({shadow: true});
+
 });

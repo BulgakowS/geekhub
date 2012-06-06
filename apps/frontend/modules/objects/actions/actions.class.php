@@ -32,9 +32,9 @@ class objectsActions extends sfActions
     $this->comments = $this->object->getAllComments();
     
     $this->form = new CommentsForm();
-    $this->form->useFields(array('text','negative'));
     
     if($request->isMethod('post')) {
+        $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasCredential('user') );
         $this->form->bind($request->getParameter($this->form->getName())); 
         if ( $this->form->isValid() ) {
             
@@ -50,7 +50,7 @@ class objectsActions extends sfActions
   public function executeShowByAction(sfWebRequest $request) {
       $act = $request->getParameter('act');
       $this->forward404Unless($act);
-      
+      $this->actId = $act;
       $this->pager = new sfDoctrinePager('Objects',  sfConfig::get('app_max_on_category'));
       $this->pager->setQuery(ObjectsTable::getObjectsByActionsId($act));
       $this->pager->setPage($this->getRequestParameter('page',1));
@@ -66,7 +66,7 @@ class objectsActions extends sfActions
   public function executeShowByCategory(sfWebRequest $request) {
       $cat = $request->getParameter('cat');
       $this->forward404Unless($cat);
-      
+      $this->catId = $cat;
       $this->pager = new sfDoctrinePager('Objects',  sfConfig::get('app_max_on_category'));
       $this->pager->setQuery(ObjectsTable::getObjectsBycategoryId($cat));
       $this->pager->setPage($this->getRequestParameter('page',1));
@@ -81,7 +81,9 @@ class objectsActions extends sfActions
   
   public function executeNew(sfWebRequest $request)
   {
-    $this->form = new ObjectsForm();
+    $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasCredential('user') );
+    $form =  new ObjectsForm();
+    $this->form = $form;
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -97,6 +99,7 @@ class objectsActions extends sfActions
 
   public function executeEdit(sfWebRequest $request)
   {
+    $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasCredential('user') );
     $this->forward404Unless($objects = Doctrine_Core::getTable('Objects')->find(array($request->getParameter('id'))), sprintf('Object objects does not exist (%s).', $request->getParameter('id')));
     $this->form = new ObjectsForm($objects);
   }
@@ -115,7 +118,7 @@ class objectsActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-
+    $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasCredential('user') );
     $this->forward404Unless($objects = Doctrine_Core::getTable('Objects')->find(array($request->getParameter('id'))), sprintf('Object objects does not exist (%s).', $request->getParameter('id')));
     $objects->delete();
 
@@ -124,19 +127,49 @@ class objectsActions extends sfActions
     
   public function executeUploadphotos(sfWebRequest $request)
   {
+    //$this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasCredential('user') );
     $id = $request->getParameter('id');
     $object = Doctrine::getTable('Objects')->find($id);
     $this->forward404Unless($object);
-
-    $this->photos = $object->getAllPhotos();
+    $this->object = $object;
+    $this->form = new UploadForm();
     
-//    $filename = UploadFile::upload($request, $params);
-//
-//    $this->setLayout(false);
-//
-//    die('{"jsonrpc" : "2.0", "error" : {"code": 333, "message": "Upload success."}, "id" : "id", "filename": "'. $filename .'"}');
-//
-//    return sfView::NONE;
+    if($request->isMethod('put'))
+    {
+        //print_r($file = $request->getFiles());
+        $file = $request->getFiles();  
+        $name = $file['files']['photos']['name'];
+        $size = $file['files']['photos']['size'];
+        $tmp = $file['files']['photos']['tmp_name'];
+
+        $upload_path = sfConfig::get('sf_upload_dir').DIRECTORY_SEPARATOR. $id .DIRECTORY_SEPARATOR;
+        if(!is_dir($upload_path)) {
+                mkdir($upload_path, 0777);           
+        }
+        $name = preg_replace('/[^\w\._]+/', '_', $name);
+        $full_name = $upload_path . $name;
+        $url = 'uploads' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . $name;
+        if (!is_file($full_name)){
+                copy($tmp, $full_name);
+
+                $photo = new Photos();
+                $photo->setObjectsId($id);
+                $photo->setUrl($url);
+                $photo->save();
+
+                echo('<img src="/timthumb.php?src='.$photo->getUrl().'&w=180&h=120" />');
+        } else {
+            echo('Файл уже существует ;)');
+        }
+    //      
+    //      $t = 'image/' . substr($name, (strrpos($name, ".")+1) );
+    //      
+    //      $img = new sfImage($tmp, $t);
+      
+      $this->setLayout(false);
+      return sfView::NONE;
+    }
+    
   }  
   
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -146,7 +179,7 @@ class objectsActions extends sfActions
     {
       $objects = $form->save();
 
-      $this->redirect('objects/show?id='.$objects->getId());
+      $this->redirect('@photo_upload?id='.$objects->getId());
     }
   }
   

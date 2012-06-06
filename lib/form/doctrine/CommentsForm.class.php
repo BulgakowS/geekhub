@@ -15,6 +15,8 @@ class CommentsForm extends BaseCommentsForm
       $this->disableCSRFProtection();
       unset($this['created_at'], $this['updated_at'], $this['id'] );
       
+      $this->useFields(array('text','negative'));
+      
       $this->widgetSchema['negative'] = new sfWidgetFormInputCheckbox(array(), 
                                             array('id'=>"pncheck",  
                                                   'data-on'=>"Позитивный", 

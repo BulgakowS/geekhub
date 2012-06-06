@@ -26,6 +26,11 @@ article{
     padding: 15px 0;
     margin: 0 auto;
 }
+footer{
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+}
 .error_list
 {
     margin: 0;
@@ -164,4 +169,13 @@ form table{
 .error404 img{
     margin-left: 35%;
 }
-
+.uploadPhotos{
+    margin: 0 35%;
+}
+td.imgs{
+    text-align: center;
+}
+td.imgs img{
+    border-radius: 3px;
+    margin: 5px;
+}

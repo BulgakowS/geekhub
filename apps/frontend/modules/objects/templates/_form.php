@@ -13,7 +13,7 @@
             <?php if (!$form->getObject()->isNew()): ?>
                 &nbsp;<?php echo link_to('Удалить', 'objects/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Вы уверены?', 'class' => "btn btn-danger")) ?>
             <?php endif; ?>
-            <input type="submit" value="Сохранить" class="btn btn-success"/>
+            <input type="submit" value="Добавить фото" class="btn btn-success"/>
             </td>
         </tr>
         </tfoot>

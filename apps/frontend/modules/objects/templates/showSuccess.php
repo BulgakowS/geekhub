@@ -1,4 +1,7 @@
 <?php use_stylesheet('jquery.tzCheckbox.css'); ?>
+<?php use_stylesheet('../js/fullsize/fullsize.css'); ?>
+<?php use_javascript('fullsize/jquery.fullsize.js'); ?>
+
 
 <a href="<?php echo url_for('objects/index') ?>" class="btn btn-info">Назад</a>
 
@@ -42,6 +45,15 @@
         
     </td>
   </tr>
+  <?php if(count($object->getAllPhotos())>0): ?>
+    <tr>
+        <td colspan="3" class="imgs">
+            <?php foreach ($object->getAllPhotos() as $photo): ?>
+                <img src="/timthumb.php?src=<?php echo $photo->getUrl(); ?>&w=180&h=120" class="full" title="" longdesc="/<?php echo $photo->getUrl(); ?>"/>
+            <?php endforeach; ?>
+        </td>
+    </tr>
+  <?php endif; ?>
   <tr>
     <td colspan="3">
         <p><b>Коментарии:</b></p>

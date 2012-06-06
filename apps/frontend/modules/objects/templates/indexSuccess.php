@@ -53,6 +53,14 @@
 </tr>
 <?php endforeach; ?>
 </table>  
-<div class="pager">  
- <?php  echo pager_navigation($pager, '@homepage_pager') ?>
+<div class="pager">
+ <?php 
+    if ($action == 'showByCategory'){
+        echo pager_navigation($pager, '@by_cat_pager?cat='.$catId); 
+    } elseif ($action == 'showByAction') {
+        echo pager_navigation($pager, '@by_act_pager?act='.$actId); 
+    } else {
+        echo pager_navigation($pager, '@homepage_pager'); 
+    }
+ ?>
 </div>

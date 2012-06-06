@@ -25,6 +25,10 @@ by_cat:
   url:   /showcategory/:cat
   param: { module: objects, action: showByCategory }
 
+by_act_pager:
+  url:   /showaction/:act/page/:page
+  param: {module: objects, action: showByAction}
+
 by_act:
   url:   /showaction/:act
   param: {module: objects, action: showByAction}

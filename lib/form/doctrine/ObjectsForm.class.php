@@ -27,5 +27,8 @@ class ObjectsForm extends BaseObjectsForm
          'avaible' => 'Активно:',
          'price' => 'Цена:'
       ));
+    
+    $this->widgetSchema['avaible'] = new sfWidgetFormInputCheckbox(array(), array('checked'=>'checked'));
+    
   }
 }
