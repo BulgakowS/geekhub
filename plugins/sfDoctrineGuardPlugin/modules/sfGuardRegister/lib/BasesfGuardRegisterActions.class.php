@@ -19,6 +19,23 @@ class BasesfGuardRegisterActions extends sfActions
       {
         $user = $this->form->save();
         $this->getUser()->signIn($user);
+        
+        $userClass =  $this->getUser()->getGuardUser();
+        
+        if (!$userClass->hasGroup('user'))
+        {
+          $userClass->addGroupByName('user');
+          
+          //$userClass->save();
+        } 
+        
+        if(!$this->getUser()->hasPermission('user'))
+        {
+            $this->getUser()->addPermissionByName('user');
+            //$userClass->save();
+        }
+
+        
 
         $this->redirect('@homepage');
       }

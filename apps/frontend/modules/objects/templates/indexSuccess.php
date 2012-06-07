@@ -3,7 +3,7 @@
 
 
 
-<?php if ($sf_user->isAuthenticated() && !$sf_user->hasCredential('user')): ?>
+<?php if ($sf_user->isAuthenticated() && !$sf_user->hasPermission('user')): ?>
 <a href="<?php echo url_for('objects/new') ?>" class="btn btn-success btn_new"><i class="icon-tag icon-white"></i> Создать новый</a>
 <?php endif; ?>
 <div id="cat_menu">

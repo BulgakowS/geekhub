@@ -105,7 +105,7 @@
 </table>
 
 <hr />
-<?php if ($sf_user->isAuthenticated() && !$sf_user->hasCredential('user')): ?>
+<?php if ($sf_user->isAuthenticated() && !$sf_user->hasPermission('user') ): ?>
     <a href="<?php echo url_for('objects/edit?id='.$object->getId()) ?>" class="btn btn-warning">
         <i class="icon-edit"></i> Редактировать
     </a>

@@ -1,4 +1,4 @@
-<?php if ($sf_user->isAuthenticated() && !$sf_user->hasCredential('user')): ?>
+<?php if ($sf_user->isAuthenticated() && !$sf_user->hasPermission('user')): ?>
     <h2>Загрузка фото для <?php echo $object->getAdress(); ?></h2>
     <form method="post" enctype="multipart/form-data" accept-charset="utf-8" class="uploadPhotos">
     <p>

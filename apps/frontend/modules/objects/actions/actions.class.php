@@ -34,7 +34,7 @@ class objectsActions extends sfActions
     $this->form = new CommentsForm();
     
     if($request->isMethod('post')) {
-        $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasCredential('user') );
+        $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasPermission('user') );
         $this->form->bind($request->getParameter($this->form->getName())); 
         if ( $this->form->isValid() ) {
             
@@ -81,7 +81,7 @@ class objectsActions extends sfActions
   
   public function executeNew(sfWebRequest $request)
   {
-    $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasCredential('user') );
+    $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasPermission('user') );
     $form =  new ObjectsForm();
     $this->form = $form;
   }
@@ -99,7 +99,7 @@ class objectsActions extends sfActions
 
   public function executeEdit(sfWebRequest $request)
   {
-    $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasCredential('user') );
+    $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasPermission('user') );
     $this->forward404Unless($objects = Doctrine_Core::getTable('Objects')->find(array($request->getParameter('id'))), sprintf('Object objects does not exist (%s).', $request->getParameter('id')));
     $this->form = new ObjectsForm($objects);
   }
@@ -118,7 +118,7 @@ class objectsActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasCredential('user') );
+    $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasPermission('user') );
     $this->forward404Unless($objects = Doctrine_Core::getTable('Objects')->find(array($request->getParameter('id'))), sprintf('Object objects does not exist (%s).', $request->getParameter('id')));
     $objects->delete();
 
@@ -127,7 +127,7 @@ class objectsActions extends sfActions
     
   public function executeUploadphotos(sfWebRequest $request)
   {
-    //$this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasCredential('user') );
+    //$this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasPermission('user') );
     $id = $request->getParameter('id');
     $object = Doctrine::getTable('Objects')->find($id);
     $this->forward404Unless($object);
