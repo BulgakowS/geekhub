@@ -1,32 +1,18 @@
 <?php use_helper('Pagination'); ?>
 <?php $action = $sf_context->getActionName(); ?> 
 
-
-
 <?php if ($sf_user->isAuthenticated() && !$sf_user->hasPermission('user')): ?>
 <a href="<?php echo url_for('objects/new') ?>" class="btn btn-success btn_new"><i class="icon-tag icon-white"></i> Создать новый</a>
 <?php endif; ?>
-<div id="cat_menu">
-    <?php include_partial('cat_menu', array('categorys' => $categorys)) ?>
-</div>  
+
+<?php  include_partial('menu', array('categorys' => $categorys, 'actions' => $actions)) ?>
+
 <table class="table table-bordered table-condensed" id="main_table">
 <?php foreach ($pager->getResults() as $objects): ?>  
 <tr>
     <td>
         <p class="cat">
-            <?php if ($action != 'showByCategory'): ?>
-                <?php echo link_to($objects->getCategory(), '@by_cat?cat='.$objects->getCategoryId(), array('class' => 'label label-info')) ?> | 
-            <?php else: ?>
-                <span class = "label label-success"><?php echo $objects->getCategory(); ?></span> | 
-            <?php endif; ?>
-            
-            <?php if ($action != 'showByAction'): ?>
-                <?php echo link_to($objects->getActions(), '@by_act?act='.$objects->getActionsId(), array('class' => 'label label-info')) ?> | 
-            <?php else: ?>
-                <span class = "label label-success"><?php echo $objects->getActions(); ?></span> | 
-            <?php endif; ?>    
-            
-            <?php echo $objects->getSfGuardUser() ?>
+            <?php include_partial('obj_head', array('objects'=>$objects)); ?>
         </p>
         <h2 class="obj_link">
             <a href="<?php echo url_for('@obj_show?id='.$objects->getId()) ?>">
@@ -55,10 +41,8 @@
 </table>  
 <div class="pager">
  <?php 
-    if ($action == 'showByCategory'){
-        echo pager_navigation($pager, '@by_cat_pager?cat='.$catId); 
-    } elseif ($action == 'showByAction') {
-        echo pager_navigation($pager, '@by_act_pager?act='.$actId); 
+    if ($action == 'showByIds') {
+        echo pager_navigation($pager, '@by?act='.$sf_request->getParameter('act', 'vse').'&cat='.$sf_request->getParameter('cat', 'vse')); 
     } else {
         echo pager_navigation($pager, '@homepage_pager'); 
     }

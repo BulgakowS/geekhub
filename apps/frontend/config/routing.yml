@@ -13,25 +13,25 @@ sf_guard_password:
   url:   /request_password
   param: { module: sfGuardAuth, action: password }
 
-categories:
-  url:   /categories
-  param: { module: category, action: index }
+#by_cat_pager:
+#  url:   /showcategory/:cat/page/:page
+#  param: { module: objects, action: showByCategory }
+#
+#by_cat:
+#  url:   /showcategory/:cat
+#  param: { module: objects, action: showByCategory }
+#
+#by_act_pager:
+#  url:   /showaction/:act/page/:page
+#  param: {module: objects, action: showByAction}
+#
+#by_act:
+#  url:   /showaction/:act
+#  param: {module: objects, action: showByAction}
 
-by_cat_pager:
-  url:   /showcategory/:cat/page/:page
-  param: { module: objects, action: showByCategory }
-
-by_cat:
-  url:   /showcategory/:cat
-  param: { module: objects, action: showByCategory }
-
-by_act_pager:
-  url:   /showaction/:act/page/:page
-  param: {module: objects, action: showByAction}
-
-by_act:
-  url:   /showaction/:act
-  param: {module: objects, action: showByAction}
+by:
+  url:   /show/cat/:cat/act/:act/page/:page
+  param: {module: objects, action: showByIds, cat: vse, act: vse, page: 1}
 
 obj_show:
   url:   /show-object/:id

@@ -5,7 +5,7 @@
         <?php use_stylesheets_for_form($form) ?>
         <?php use_javascripts_for_form($form) ?>
         <?php echo $form ?>
-        <input type="hidden" name="sf_method" value="put" />
+
     </p>
     <p>
         <a href="<?php echo url_for('@obj_show?id='.$object->getId()); ?>" class="btn btn-success" >Просмотреть объект</a>

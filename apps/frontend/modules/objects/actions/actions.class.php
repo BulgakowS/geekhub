@@ -17,9 +17,8 @@ class objectsActions extends sfActions
       $this->pager->setPage($this->getRequestParameter('page',1));
       $this->pager->init();
       
-      $this->categorys = Doctrine::getTable('Category')
-              ->createQuery('c')
-              ->execute();
+      $this->categorys = CategoryTable::getAllCategories();
+      $this->actions = ActionsTable::getAllActions();
   }
 
   public function executeShow(sfWebRequest $request)
@@ -37,9 +36,7 @@ class objectsActions extends sfActions
         $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasPermission('user') );
         $this->form->bind($request->getParameter($this->form->getName())); 
         if ( $this->form->isValid() ) {
-            
             $this->form->createComment($id, $this->getUser()->getGuardUser()->getId());
-          
             $this->getUser()->setFlash('success', 'Комментарий успешно добавлен!');
 
             $this->redirect('@obj_show?id='.$id);
@@ -47,37 +44,52 @@ class objectsActions extends sfActions
     }
   }
   
-  public function executeShowByAction(sfWebRequest $request) {
+  public function executeShowByIds(sfWebRequest $request) {
       $act = $request->getParameter('act');
-      $this->forward404Unless($act);
-      $this->actId = $act;
-      $this->pager = new sfDoctrinePager('Objects',  sfConfig::get('app_max_on_category'));
-      $this->pager->setQuery(ObjectsTable::getObjectsByActionsId($act));
-      $this->pager->setPage($this->getRequestParameter('page',1));
-      $this->pager->init();
-      
-      $this->categorys = Doctrine::getTable('Category')
-              ->createQuery('c')
-              ->execute();
-      
-      $this->setTemplate('index');
-  }
-
-  public function executeShowByCategory(sfWebRequest $request) {
       $cat = $request->getParameter('cat');
-      $this->forward404Unless($cat);
+      $this->forward404Unless(($act && $cat));
+      $this->actId = $act;
       $this->catId = $cat;
       $this->pager = new sfDoctrinePager('Objects',  sfConfig::get('app_max_on_category'));
-      $this->pager->setQuery(ObjectsTable::getObjectsBycategoryId($cat));
+      $this->pager->setQuery(ObjectsTable::getObjectsByIds($act, $cat));
       $this->pager->setPage($this->getRequestParameter('page',1));
       $this->pager->init();
       
-      $this->categorys = Doctrine::getTable('Category')
-              ->createQuery('c')
-              ->execute();
+      $this->categorys = CategoryTable::getAllCategories();
+      $this->actions = ActionsTable::getAllActions();
       
       $this->setTemplate('index');
   }
+  
+//  public function executeShowByAction(sfWebRequest $request) {
+//      $act = $request->getParameter('act');
+//      $this->forward404Unless($act);
+//      $this->actId = $act;
+//      $this->pager = new sfDoctrinePager('Objects',  sfConfig::get('app_max_on_category'));
+//      $this->pager->setQuery(ObjectsTable::getObjectsByActionsId($act));
+//      $this->pager->setPage($this->getRequestParameter('page',1));
+//      $this->pager->init();
+//      
+//      $this->categorys = CategoryTable::getAllCategories();
+//      $this->actions = ActionsTable::getAllActions();
+//      
+//      $this->setTemplate('index');
+//  }
+//
+//  public function executeShowByCategory(sfWebRequest $request) {
+//      $cat = $request->getParameter('cat');
+//      $this->forward404Unless($cat);
+//      $this->catId = $cat;
+//      $this->pager = new sfDoctrinePager('Objects',  sfConfig::get('app_max_on_category'));
+//      $this->pager->setQuery(ObjectsTable::getObjectsBycategoryId($cat));
+//      $this->pager->setPage($this->getRequestParameter('page',1));
+//      $this->pager->init();
+//      
+//      $this->categorys = CategoryTable::getAllCategories();
+//      $this->actions = ActionsTable::getAllActions();
+//      
+//      $this->setTemplate('index');
+//  }
   
   public function executeNew(sfWebRequest $request)
   {
@@ -91,7 +103,6 @@ class objectsActions extends sfActions
     $this->forward404Unless($request->isMethod(sfRequest::POST));
 
     $this->form = new ObjectsForm();
-
     $this->processForm($request, $this->form);
 
     $this->setTemplate('new');
@@ -117,31 +128,40 @@ class objectsActions extends sfActions
 
   public function executeDelete(sfWebRequest $request)
   {
-    $request->checkCSRFProtection();
     $this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasPermission('user') );
-    $this->forward404Unless($objects = Doctrine_Core::getTable('Objects')->find(array($request->getParameter('id'))), sprintf('Object objects does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($objects = Doctrine_Core::getTable('Objects')->find(array($id)), sprintf('Object objects does not exist (%s).', $id));
+    $photos = $objects->getAllPhotos();
+    foreach ($photos as $photo) {
+        if(is_file($photo->getUrl())){
+            unlink($photo->getUrl());
+        }
+        
+    }
+    $dir = 'uploads' . DIRECTORY_SEPARATOR . $id;
+    if (is_dir($dir)){
+        rmdir($dir);
+    }
     $objects->delete();
-
+    
     $this->redirect('objects/index');
   }
     
   public function executeUploadphotos(sfWebRequest $request)
   {
-    //$this->forward404Unless( $this->getUser()->isAuthenticated() && !$this->getUser()->hasPermission('user') );
     $id = $request->getParameter('id');
     $object = Doctrine::getTable('Objects')->find($id);
     $this->forward404Unless($object);
     $this->object = $object;
     $this->form = new UploadForm();
     
-    if($request->isMethod('put'))
+    if ($request->isMethod('post'))
     {
         //print_r($file = $request->getFiles());
-        $file = $request->getFiles();  
+        $file = $request->getFiles();
+        
         $name = $file['files']['photos']['name'];
-        $size = $file['files']['photos']['size'];
         $tmp = $file['files']['photos']['tmp_name'];
-
         $upload_path = sfConfig::get('sf_upload_dir').DIRECTORY_SEPARATOR. $id .DIRECTORY_SEPARATOR;
         if(!is_dir($upload_path)) {
                 mkdir($upload_path, 0777);           
@@ -151,20 +171,14 @@ class objectsActions extends sfActions
         $url = 'uploads' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . $name;
         if (!is_file($full_name)){
                 copy($tmp, $full_name);
-
                 $photo = new Photos();
                 $photo->setObjectsId($id);
                 $photo->setUrl($url);
                 $photo->save();
-
                 echo('<img src="/timthumb.php?src='.$photo->getUrl().'&w=180&h=120" />');
         } else {
             echo('Файл уже существует ;)');
         }
-    //      
-    //      $t = 'image/' . substr($name, (strrpos($name, ".")+1) );
-    //      
-    //      $img = new sfImage($tmp, $t);
       
       $this->setLayout(false);
       return sfView::NONE;

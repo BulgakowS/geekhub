@@ -1,9 +1,10 @@
 cache/
 log/
+web/uploads
 config/databases.yml
 lib/vendor/
 .idea/
-/nbproject/private/
+/nbproject
 /plugins/sfSympalPlugin-0.5.8/tests/fixtures/project/plugins/.channels/
 /plugins/sfSympalPlugin-0.5.8/tests/fixtures/project/plugins/.registry/
 /plugins/sfSympalPlugin/tests/fixtures/project/plugins/.registry/

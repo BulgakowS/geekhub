@@ -16,22 +16,37 @@ class ObjectsTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('Objects');
     }
-
-    public static function getObjectsByCategoryId( $cat )
+    
+    public static function getObjectsByIds ($act = null, $cat = null)
     {
         $q = self::getFullObjectsQuery();
-        $q->where('o.category_id = ?', $cat);
-
+        if (!is_null($cat) && $cat != 'vse') {
+            $q->andWhere('o.category_id = ?', $cat);
+        } 
+        if (!is_null($act) && $act != 'vse') {
+            $q->andWhere('o.actions_id = ?', $act);
+        }
+        
+        //echo $q->__toString();
+        
         return $q;
     }
     
-    public static function getObjectsByActionsId( $act )
-    {
-        $q = self::getFullObjectsQuery();
-        $q->where('o.actions_id = ?', $act);
-
-        return $q;
-    }
+//    public static function getObjectsByCategoryId( $cat )
+//    {
+//        $q = self::getFullObjectsQuery();
+//        $q->where('o.category_id = ?', $cat);
+//
+//        return $q;
+//    }
+//    
+//    public static function getObjectsByActionsId( $act )
+//    {
+//        $q = self::getFullObjectsQuery();
+//        $q->where('o.actions_id = ?', $act);
+//
+//        return $q;
+//    }
     
     public static function getFullObjectsQuery(){
         return $q = Doctrine_Core::getTable('Objects')->createQuery('o')

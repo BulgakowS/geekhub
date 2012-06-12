@@ -12,6 +12,13 @@ class CategoryTable extends Doctrine_Table
      *
      * @return object CategoryTable
      */
+    public static function getAllCategories(){
+        return Doctrine::getTable('Category')
+              ->createQuery('c')
+              ->execute();
+    }
+
+
     public static function getInstance()
     {
         return Doctrine_Core::getTable('Category');
@@ -25,18 +32,18 @@ class CategoryTable extends Doctrine_Table
         return $q->execute();
     }
    
-    public function addObjectsByCategoryQuery(Doctrine_Query $q = null)
-    {
-        if (is_null($q))
-        {
-            $q = Doctrine_Query::create()
-            ->from('Objects o');
-        }
-
-        $alias = $q->getRootAlias();
-
-        $q->addOrderBy($alias . '.updated_at DESC');
-        
-        return $q;
-    }
+//    public function addObjectsByCategoryQuery(Doctrine_Query $q = null)
+//    {
+//        if (is_null($q))
+//        {
+//            $q = Doctrine_Query::create()
+//            ->from('Objects o');
+//        }
+//
+//        $alias = $q->getRootAlias();
+//
+//        $q->addOrderBy($alias . '.updated_at DESC');
+//        
+//        return $q;
+//    }
 }
