@@ -31,7 +31,6 @@
         <?php else: ?>
             <p class="updated"><b>Обновлено: </b><?php echo $object->getUpdatedAt() ?></p>
         <?php endif; ?>
-        
     </td>
   </tr>
   <?php if(count($object->getAllPhotos())>0): ?>
@@ -72,10 +71,9 @@
     <a href="<?php echo url_for('objects/edit?id='.$object->getId()) ?>" class="btn btn-warning">
         <i class="icon-edit"></i> Редактировать
     </a>
-    <?php echo link_to(
-                '<i class="icon-trash icon-white"></i> Удалить', 
-                'objects/delete?id='.$object->getId(), 
-                array( 'confirm' => 'Вы уверенны?', 'absolute' => true, "class"=>"btn btn-danger")
-            );
+    <?php echo link_to( '<i class="icon-trash icon-white"></i> Удалить', 
+                    'objects/delete?id='.$object->getId(), 
+                    array( 'confirm' => 'Вы уверенны?', 'absolute' => true, "class"=>"btn btn-danger")
+                );
     ?>
 <?php endif; ?>

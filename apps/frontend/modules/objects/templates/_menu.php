@@ -1,4 +1,4 @@
-<div id="menu">
+<div id="sortMenu">
     <div id="cat_menu">
         <ul class="nav nav-list">
             <?php if ( ($sf_request->hasParameter('cat')) && ($sf_request->getParameter('cat') != 'vse') ): ?>

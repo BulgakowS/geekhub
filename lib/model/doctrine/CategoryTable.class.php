@@ -15,6 +15,7 @@ class CategoryTable extends Doctrine_Table
     public static function getAllCategories(){
         return Doctrine::getTable('Category')
               ->createQuery('c')
+              ->orderBy('c.name DESC')
               ->execute();
     }
 

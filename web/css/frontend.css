@@ -81,10 +81,10 @@ footer{
     padding: 10px;
 }
 
-#menu{
+#sortMenu{
     position: fixed;
 }
-#menu .reset{
+#sortMenu .reset{
     float: right;
     font-weight: bold;
 }

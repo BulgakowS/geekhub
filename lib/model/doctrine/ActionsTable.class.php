@@ -35,6 +35,7 @@ class ActionsTable extends Doctrine_Table
     public static function getAllActions(){
         return Doctrine::getTable('Actions')
               ->createQuery('a')
+              ->orderBy('a.name ASC')
               ->execute();
     }
 }
