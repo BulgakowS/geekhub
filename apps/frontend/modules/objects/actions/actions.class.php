@@ -133,8 +133,9 @@ class objectsActions extends sfActions
     $this->forward404Unless($objects = Doctrine_Core::getTable('Objects')->find(array($id)), sprintf('Object objects does not exist (%s).', $id));
     $photos = $objects->getAllPhotos();
     foreach ($photos as $photo) {
-        if(is_file($photo->getUrl())){
-            unlink($photo->getUrl());
+        $url = $photo->getUrl();
+        if(is_file($url)){
+            unlink($url);
         }
         
     }

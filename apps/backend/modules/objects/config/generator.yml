@@ -14,7 +14,9 @@ generator:
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:    
+        title: Объекты
+        display: [=adress, category, actions, sfGuardUser, avaible]
       filter:  ~
       form:    ~
       edit:    ~

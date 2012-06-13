@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+  <file original="global" source-language="en" datatype="plaintext">
+    <header/>
+    <body>
+      <trans-unit>
+        <source>Adress</source>
+        <target>Адресс</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Category</source>
+        <target>Категория</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Actions</source>
+        <target>Раздел</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sf guard user</source>
+        <target>Владелец</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Avaible</source>
+        <target>Доступен</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Page</source>
+        <target>Страница</target>
+      </trans-unit>
+      <trans-unit>
+        <source>View</source>
+        <target>Просмотр</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Filters</source>
+        <target>Фильтр</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit Objects</source>
+        <target>Редактирование объекта</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
